@@ -55,8 +55,18 @@ class PerformanceTests: XCTestCase {
         
     }
     
+    func testConcurrentChunked() {
+        
+        let chunks = string.characters.chunk(by:150)
+
+        viewController.concurrentChunked_numberOfVowelsInString(chunks: chunks) { (numberOfVowels) in
+            
+            XCTAssertEqual(numberOfVowels, 167, "should find 167 vowels")
+        }
+    }
+    
     func testPerformanceFastEnumeration() {
-        // This is an example of a performance test case.
+
         self.measure { [weak self] in
         
             for _ in 0...1000 {
@@ -67,7 +77,7 @@ class PerformanceTests: XCTestCase {
     }
     
     func testPerformanceReduce() {
-        // This is an example of a performance test case.
+
         self.measure { [weak self] in
             
             for _ in 0...1000 {
@@ -78,7 +88,7 @@ class PerformanceTests: XCTestCase {
     }
     
     func testPerformanceFastEnumerationWithWhere() {
-        // This is an example of a performance test case.
+
         self.measure { [weak self] in
             
             for _ in 0...1000 {
@@ -89,7 +99,7 @@ class PerformanceTests: XCTestCase {
     }
 
     func testPerformanceWithUnsafeBufferPointer() {
-        // This is an example of a performance test case.
+
         self.measure { [weak self] in
             
             for _ in 0...1000 {
@@ -101,7 +111,7 @@ class PerformanceTests: XCTestCase {
     
     
     func testPerformanceWithUnsafeBufferPointerIndexes() {
-        // This is an example of a performance test case.
+
         self.measure { [weak self] in
             
             for _ in 0...1000 {
@@ -112,13 +122,27 @@ class PerformanceTests: XCTestCase {
     }
     
     func testPerformanceWithUnsafeBufferPointerBothIndexes() {
-        // This is an example of a performance test case.
+
         self.measure { [weak self] in
             
             let characters: [Character] = Array(self!.string.characters)
             for _ in 0...1000 {
                 
                 _ = self?.viewController.withUnsafeBufferPointerBothIndexes_numberOfVowels(in: characters )
+            }
+        }
+    }
+    
+    
+    func testPerformanceConcurrentChunked() {
+
+        self.measure { [weak self] in
+            
+            
+            let chunks = self!.string.characters.chunk(by:150)
+            
+            for _ in 0...1000 {
+                self?.viewController.concurrentChunked_numberOfVowelsInString(chunks: chunks) { _ in }
             }
         }
     }
