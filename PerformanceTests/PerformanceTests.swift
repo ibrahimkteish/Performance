@@ -11,26 +11,44 @@ import XCTest
 
 class PerformanceTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    let string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    
+    let viewController = ViewController()
+    
+    func testReduce() {
+        
+        let numberOfVowels = viewController.reduce_numberOfVowels(in: string)
+        
+        XCTAssertEqual(numberOfVowels, 167, "should find 167 vowels")
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testFastEnumeration() {
+        
+        let numberOfVowels = viewController.numberOfVowels(in: string)
+        
+        XCTAssertEqual(numberOfVowels, 167, "should find 167 vowels")
+        
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
+    func testPerformanceFastEnumeration() {
         // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        self.measure { [weak self] in
+        
+            for _ in 0...1000 {
+                
+                _ = self?.viewController.numberOfVowels(in: self?.string ?? "")
+            }
         }
     }
     
+    func testPerformanceReduce() {
+        // This is an example of a performance test case.
+        self.measure { [weak self] in
+            
+            for _ in 0...1000 {
+                
+                _ = self?.viewController.reduce_numberOfVowels(in: self?.string ?? "")
+            }
+        }
+    }
 }

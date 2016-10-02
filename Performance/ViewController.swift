@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +22,30 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    
+    // MARK: To be tested
+    
+    func numberOfVowels(in string:String) -> Int {
+        
+        let vowels: [Character] = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+        
+        var numberOfVowels = 0
+        
+        for character in string.characters {
+            if vowels.contains(character) {
+                numberOfVowels += 1
+            }
+        }
+        
+        return numberOfVowels
+    }
+    
+    
+    func reduce_numberOfVowels(in string:String) -> Int {
+        
+        let vowels: [Character] = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+        
+        return string.characters.reduce(0) { $0 + (vowels.contains($1) ? 1 : 0) }
+    }
 }
 
