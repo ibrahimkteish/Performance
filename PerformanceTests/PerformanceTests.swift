@@ -30,6 +30,14 @@ class PerformanceTests: XCTestCase {
         
     }
     
+    func testWithUnsafeBufferPointer() {
+        
+        let numberOfVowels = viewController.withUnsafeBufferPointer_numberOfVowels(in: string)
+        
+        XCTAssertEqual(numberOfVowels, 167, "should find 167 vowels")
+        
+    }
+    
     func testPerformanceFastEnumeration() {
         // This is an example of a performance test case.
         self.measure { [weak self] in
@@ -59,6 +67,17 @@ class PerformanceTests: XCTestCase {
             for _ in 0...1000 {
                 
                 _ = self?.viewController.fastEnumerationWithWhere_numberOfVowels(in: self?.string ?? "")
+            }
+        }
+    }
+
+    func testPerformanceWithUnsafeBufferPointer() {
+        // This is an example of a performance test case.
+        self.measure { [weak self] in
+            
+            for _ in 0...1000 {
+                
+                _ = self?.viewController.withUnsafeBufferPointer_numberOfVowels(in: self?.string ?? "")
             }
         }
     }
