@@ -51,4 +51,15 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
+    
+    func testPerformanceFastEnumerationWithWhere() {
+        // This is an example of a performance test case.
+        self.measure { [weak self] in
+            
+            for _ in 0...1000 {
+                
+                _ = self?.viewController.fastEnumerationWithWhere_numberOfVowels(in: self?.string ?? "")
+            }
+        }
+    }
 }

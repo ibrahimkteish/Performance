@@ -47,5 +47,20 @@ class ViewController: UIViewController {
         
         return string.characters.reduce(0) { $0 + (vowels.contains($1) ? 1 : 0) }
     }
+
+    
+    func fastEnumerationWithWhere_numberOfVowels(in string:String) -> Int {
+        
+        let vowels: [Character] = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+        
+        var numberOfVowels = 0
+        
+        for character in string.characters where vowels.contains(character) {
+        
+            numberOfVowels += 1
+        }
+        
+        return numberOfVowels
+    }
 }
 
