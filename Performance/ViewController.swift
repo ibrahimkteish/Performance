@@ -85,5 +85,54 @@ class ViewController: UIViewController {
         
         return numberOfVowels
     }
-}
 
+    func withUnsafeBufferPointerIndexes_numberOfVowels(in string:String) -> Int {
+        
+        var numberOfVowels = 0
+        
+        let vowels: [Character] = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+        
+        vowels.withUnsafeBufferPointer { bufferPointer  in
+            
+            for char in string.characters {
+                
+                for index in bufferPointer.startIndex..<bufferPointer.endIndex {
+                    
+                    if bufferPointer[index] == char {
+                        
+                        numberOfVowels += 1
+                    }
+                }
+            }
+        }
+        
+        return numberOfVowels
+    }
+    
+    
+    func withUnsafeBufferPointerBothIndexes_numberOfVowels(in characters:[Character]) -> Int {
+        
+        var numberOfVowels = 0
+        
+        let vowels: [Character] = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+
+        vowels.withUnsafeBufferPointer { vowelsBufferPointer  in
+
+            characters.withUnsafeBufferPointer { charactersBuffer in
+            
+                for idx in charactersBuffer.startIndex..<charactersBuffer.endIndex {
+        
+                    for index in vowelsBufferPointer.startIndex..<vowelsBufferPointer.endIndex {
+                    
+                        if vowelsBufferPointer[index] == charactersBuffer[idx] {
+                            
+                            numberOfVowels += 1
+                        }
+                    }
+                }
+            }
+        }
+        
+        return numberOfVowels
+    }
+}
